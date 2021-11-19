@@ -24,13 +24,26 @@ class PictureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().setStatusBarTransparent()
+        binding.innerContainer.setPadding(
+            0,
+            requireContext().statusBarHeight(),
+            0,
+            requireContext().navigationHeight()
+        )
+
         binding.imageviewBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.buttonBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        requireActivity().setStatusBarOrigin()
 
         _binding = null
     }

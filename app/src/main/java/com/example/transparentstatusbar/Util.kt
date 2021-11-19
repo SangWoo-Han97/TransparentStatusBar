@@ -1,0 +1,34 @@
+package com.example.transparentstatusbar
+
+import android.app.Activity
+import android.content.Context
+import android.view.WindowManager
+
+fun Context.statusBarHeight(): Int {
+    val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+
+    return if (resourceId > 0) resources.getDimensionPixelSize(resourceId)
+    else 0
+}
+
+fun Context.navigationHeight(): Int {
+    val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+
+    return if (resourceId > 0) resources.getDimensionPixelSize(resourceId)
+    else 0
+}
+
+fun Activity.setStatusBarTransparent() {
+    window.apply {
+        setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+    }
+}
+
+fun Activity.setStatusBarOrigin() {
+    window.apply {
+        clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
+}
