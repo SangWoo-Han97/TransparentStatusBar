@@ -2,7 +2,9 @@ package com.example.transparentstatusbar
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.view.WindowManager
+import androidx.core.view.WindowCompat
 
 fun Context.statusBarHeight(): Int {
     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -25,10 +27,16 @@ fun Activity.setStatusBarTransparent() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
     }
+    if(Build.VERSION.SDK_INT >= 30) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+    }
 }
 
 fun Activity.setStatusBarOrigin() {
     window.apply {
         clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
+    if(Build.VERSION.SDK_INT >= 30) {
+        WindowCompat.setDecorFitsSystemWindows(window, true)
     }
 }
